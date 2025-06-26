@@ -9,13 +9,12 @@ function Home() {
   const navigation = useNavigation();
   return (
     <View style={styles.container}>
-      <View>
-        <Text onPress={() => navigation.navigate('Calculadora')}>Pagina inicial</Text>
-        <View>
-          <Text onPress={() => navigation.navigate('Calculadora')}>Calculadora</Text>
-          <Text onPress={() => navigation.navigate('Calculadora Cientifica')}>Calculadora Cientifica</Text>
+      <View style={styles.card}>
+        <Text style={styles.texto} onPress={() => navigation.navigate('Calculadora')} >Pagina inicial</Text>
+        <View style={styles.botoes}>
+          <Text style={styles.botao} onPress={() => navigation.navigate('Calculadora')}>Calculadora</Text>
+          <Text style={styles.botao} onPress={() => navigation.navigate('Calculadora Cientifica')}>Calculadora Cientifica</Text>
         </View>
-
       </View>
 
     </View>
@@ -42,5 +41,35 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  card: {
+    display: 'flex',
+    gap: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '50%',
+    height: '200px',
+    backgroundColor: '#f0f0f0',
+    borderRadius: 10,
+  },
+  botoes: {
+    display: 'flex',
+    flexDirection: 'row',
+    gap: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  botao: {
+    padding: 10,
+    backgroundColor: 'black',
+    color: 'white',
+    borderRadius: 5,
+  },
+
+  texto: {
+    fontSize: 18,
+    color: 'black',
+    fontWeight: 'bold',
+
   },
 });

@@ -8,8 +8,16 @@ export default function Calculadora() {
         if (valor === "AC") return setExpressao("");
         if (valor === "DEL") return setExpressao(expressao.slice(0, -1));
         if (valor === "=") {
-            if (/^[0-9+\-*/.]+$/.test(expressao) && !/[+\-*/.]$/.test(expressao)) {
-                const resultado = eval(expressao);
+            const match = expressao.match(/^(-?\d+\.?\d*)([+\-*/])(-?\d+\.?\d*)$/);
+            if (match) {
+                const n1 = parseFloat(match[1]);
+                const op = match[2];
+                const n2 = parseFloat(match[3]);
+                let resultado = 0;
+                if (op === "+") resultado = n1 + n2;
+                if (op === "-") resultado = n1 - n2;
+                if (op === "*") resultado = n1 * n2;
+                if (op === "/") resultado = n2 !== 0 ? n1 / n2 : "Erro";
                 setHistorico([`${expressao} = ${resultado}`, ...historico]);
                 setExpressao(String(resultado));
             } else {

@@ -4,21 +4,23 @@ import { StyleSheet, Text, View, TouchableOpacity, ScrollView } from "react-nati
 export default function Calculadora() {
     const [expressao, setExpressao] = useState("");
     const [historico, setHistorico] = useState([]);
+    
     function handlePress(valor) {
         if (valor === "AC") return setExpressao("");
         if (valor === "DEL") return setExpressao(expressao.slice(0, -1));
         if (valor === "=") {
-            const match = expressao.match(/^(-?\d+\.?\d*)([+\-*/])(-?\d+\.?\d*)$/);
-            if (match) {
-                const n1 = parseFloat(match[1]);
-                const op = match[2];
-                const n2 = parseFloat(match[3]);
+            const operadores = ["+", "-", "*", "/"];
+            const operadorEncontrado = operadores.find(o => expressao.indexOf(o, 1) > 0);
+            if (operadorEncontrado) {
+                const pos = expressao.indexOf(operadorEncontrado, 1);
+                const n1 = parseFloat(expressao.slice(0, pos));
+                const n2 = parseFloat(expressao.slice(pos + 1));
                 let resultado = 0;
-                if (op === "+") resultado = n1 + n2;
-                if (op === "-") resultado = n1 - n2;
-                if (op === "*") resultado = n1 * n2;
-                if (op === "/") resultado = n2 !== 0 ? n1 / n2 : "Erro";
-                setHistorico([`${expressao} = ${resultado}`, ...historico]);
+                if (operadorEncontrado === "+") resultado = n1 + n2;
+                if (operadorEncontrado === "-") resultado = n1 - n2;
+                if (operadorEncontrado === "*") resultado = n1 * n2;
+                if (operadorEncontrado === "/") resultado = n1 / n2;
+                setHistorico([expressao + " = " + resultado, ...historico]);
                 setExpressao(String(resultado));
             } else {
                 setExpressao("Erro");
@@ -38,15 +40,15 @@ export default function Calculadora() {
         <View style={styles.areatotal}>
             <View style={styles.areacalculo}>
                 <View style={styles.areahistorico}>
-                    <Text>Histórico</Text>
+                    <Text style={styles.textoareahistorico}>Histórico</Text>
                     <ScrollView>
                         {historico.map((item, i) => (
-                            <Text key={i} style={{ fontSize: 14, color: "#888" }}>{item}</Text>
+                            <Text key={i} style={styles.valorareahistorico}>{item}</Text>
                         ))}
                     </ScrollView>
                 </View>
                 <View style={styles.areaexprecao}>
-                    <Text style={{ fontSize: 28, color: "#333", textAlign: "right" }}>{expressao}</Text>
+                    <Text style={styles.textoareaexpressao}>{expressao}</Text>
                 </View>
             </View>
             <View style={styles.areateclas}>
@@ -107,8 +109,16 @@ const styles = StyleSheet.create({
         height: '100%'
     },
     areahistorico: {
+        padding: 10,
         flex: 2,
         borderWidth: 1,
+    },
+    textoareahistorico: {
+        fontSize: 24,
+        fontWeight: 'bold',
+    },
+    valorareahistorico: {
+        fontSize: 18,   
     },
     areaexprecao: {
         flex: 1,
@@ -126,6 +136,11 @@ const styles = StyleSheet.create({
         height: 90,
         justifyContent: 'center',
         alignItems: 'center',
-        borderRadius: 10
-    }
+        borderRadius: 10,
+    },
+    textoareaexpressao: {
+        fontSize: 40,
+        padding: 15,
+        textAlign: 'end',
+    },
 });

@@ -38,9 +38,10 @@ const styles = StyleSheet.create({
         color: "#333",
     },
     botao: {
-        padding: 10,
+        padding: 20,
         backgroundColor: 'black',
         color: 'white',
         borderRadius: 5,
+        fontSize: 18,
     },
 });

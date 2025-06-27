@@ -10,7 +10,6 @@ function Home() {
   return (
     <View style={styles.container}>
       <View style={styles.card}>
-        <Text style={styles.texto} onPress={() => navigation.navigate('Calculadora')} >Pagina inicial</Text>
         <View style={styles.botoes}>
           <Text style={styles.botao} onPress={() => navigation.navigate('Calculadora')}>Calculadora</Text>
           <Text style={styles.botao} onPress={() => navigation.navigate('Calculadora Cientifica')}>Calculadora Cientifica</Text>
@@ -44,7 +43,7 @@ const styles = StyleSheet.create({
   },
   card: {
     display: 'flex',
-    gap: 10,
+    gap: 15,
     justifyContent: 'center',
     alignItems: 'center',
     width: '50%',
@@ -60,16 +59,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   botao: {
-    padding: 10,
+    padding: 25,
     backgroundColor: 'black',
     color: 'white',
     borderRadius: 5,
-  },
-
-  texto: {
     fontSize: 18,
-    color: 'black',
     fontWeight: 'bold',
-
   },
 });
